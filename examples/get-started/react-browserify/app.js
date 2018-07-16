@@ -15,6 +15,22 @@ const INITIAL_VIEW_STATE = {
 };
 
 class Root extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [{position: [-122.41669, 37.79]}]
+    };
+  }
+
+  componentDidMount() {
+    /* eslint-disable */
+    console.log('data before', JSON.stringify(this.state.data[0]));
+    setTimeout(() => {
+      console.log('data after', JSON.stringify(this.state.data[0]));
+    });
+    /* eslint-enable */
+  }
+
   render() {
     return (
       <DeckGL initialViewState={INITIAL_VIEW_STATE} controller={true} width="100%" height="100%">
@@ -23,11 +39,7 @@ class Root extends Component {
           data={[{sourcePosition: [-122.41669, 37.7883], targetPosition: [-122.41669, 37.781]}]}
           strokeWidth={5}
         />
-        <ScatterplotLayer
-          data={[{position: [-122.41669, 37.79]}]}
-          radiusScale={100}
-          getColor={x => [0, 0, 255]}
-        />
+        <ScatterplotLayer data={this.state.data} radiusScale={100} getColor={x => [0, 0, 255]} />
       </DeckGL>
     );
   }
